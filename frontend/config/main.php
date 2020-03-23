@@ -43,12 +43,12 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'baseUrl' => '/',
+            'baseUrl' => '',
             'rules' => [
                 '/' => 'site/index',
-                '/login' => 'user/security/login',
-                '/logout' => 'user/security/logout',
-                '/register' => 'user/registration/register',
+                '/about.html' => 'site/about',
+                '/articles' => 'article',
+                '/article/<slug:[A-Za-z0-9_-]+>.html' => '/article/view',
             ],
         ],
     ],

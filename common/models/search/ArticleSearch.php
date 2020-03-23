@@ -17,8 +17,8 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'status'], 'integer'],
-            [['title', 'content'], 'safe'],
+            [['id', 'updated_at', 'created_by', 'updated_by', 'status'], 'integer'],
+            [['title', 'content' , 'created_at'], 'safe'],
         ];
     }
 
@@ -59,7 +59,6 @@ class ArticleSearch extends Article
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -68,6 +67,14 @@ class ArticleSearch extends Article
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'content', $this->content]);
+
+        if ($this->created_at) {
+            $startTime = strtotime($this->created_at.' 00:00:00');
+            $endTime = strtotime($this->created_at.' 23:59:59');
+            $query->andWhere(['between', 'created_at', $startTime, $endTime]);
+        }
+
+        $query->orderBy(['created_at' => SORT_DESC]);
 
         return $dataProvider;
     }
