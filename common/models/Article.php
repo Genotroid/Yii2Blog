@@ -8,6 +8,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "article".
@@ -28,6 +29,7 @@ class Article extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
+            //Поведение для работы с датой создания
             'timestamp' => [
                 'class' => TimestampBehavior::class,
                 'attributes' => [
@@ -35,18 +37,19 @@ class Article extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ]
             ],
+            //Поведение для работы с датой публикации статьи
             'published' => [
                 'class' => TimestampBehavior::class,
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['published_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['published_at']
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['created_at']
 
                 ],
                 'value' => static function($event) {
                     /** @var Article $model */
                     $model = $event->sender;
-                    if ($model->published_at !== null) {
-                        return $model->published_at;
+                    if ($model->created_at !== null) {
+                        return $model->created_at;
                     }
                     if ($model->status == Article::STATUS_PUBLISHED) {
                         return time();
@@ -56,17 +59,20 @@ class Article extends \yii\db\ActiveRecord
                 }
 
             ],
+            //Поведение для работы с автором
             'editor' => [
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'created_by',
                 'updatedByAttribute' => 'updated_by'
             ],
+            //Поведение для работы с изобрадением статьи
             'files' => [
                 'class' => FileBehaviour::class,
                 'attributes' => [
                     'main_pic',
                 ]
             ],
+            //Поведение для генерации ссылки для статьи
             [
                 'class' => SluggableBehavior::class,
                 'attribute' => 'title',
@@ -93,10 +99,10 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'content', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
+            [['title', 'content'], 'required'],
             [['content'], 'string'],
             [['created_at', 'updated_at', 'created_by', 'updated_by', 'status'], 'integer'],
-            [['title'], 'string', 'max' => 255],
+            [['title', 'slug'], 'string', 'max' => 255],
             ['main_pic', 'file', 'extensions' => ['jpg', 'png', 'jpeg', 'gif'], 'maxFiles' => 1],
         ];
     }
@@ -141,5 +147,28 @@ class Article extends \yii\db\ActiveRecord
     public function getIsPublished()
     {
         return $this->status === self::STATUS_PUBLISHED;
+    }
+
+    public function getEditor()
+    {
+        return $this->hasOne(\dektrium\user\models\User::class, ['id' => 'updated_by']);
+    }
+
+    public static function getEditorsMap()
+    {
+        $adminIds = \Yii::$app->authManager->getUserIdsByRole('admin');
+        $moderIds = \Yii::$app->authManager->getUserIdsByRole('author');
+        if ($users = \dektrium\user\models\User::find()->where(['id' => ArrayHelper::merge($adminIds, $moderIds)])->all()) {
+            return ArrayHelper::map($users, 'id', 'username');
+        }
+
+        return [];
+    }
+
+    public function getStatusText()
+    {
+        $statuses = self::getStatuses();
+
+        return $statuses[$this->status];
     }
 }

@@ -23,12 +23,14 @@ class Comment extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
+            //Поведение для работы с датой создания
             'timestamp' => [
                 'class' => TimestampBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
                 ]
             ],
+            //Поведение для работы с автором
             'editor' => [
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'created_by'
