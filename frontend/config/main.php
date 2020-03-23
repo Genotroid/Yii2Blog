@@ -8,11 +8,20 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'user' => [
+            'class' => 'dektrium\user\Module',
+        ],
+        'rbac' => 'dektrium\rbac\RbacWebModule',
+    ],
+
     'components' => [
         'request' => [
+            'baseUrl' => '',
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
@@ -36,14 +45,17 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'baseUrl' => '/',
             'rules' => [
+                '/' => 'site/index',
+                '/login' => 'user/security/login',
+                '/logout' => 'user/security/logout',
+                '/register' => 'user/registration/register',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
