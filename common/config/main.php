@@ -16,5 +16,11 @@ return [
         'user' => [
             'class' => 'dektrium\user\Module',
         ],
+        'files' => [
+            'class' => 'floor12\files\Module',
+            'storage' => '@frontend/web/storage',
+            'cache' => '@frontend/web/storage_cache',
+            'token_salt' => 'pzZmpk60dbWOMP3lyZWBoONQqq5qO2cdFobJXpAf',
+        ],
     ]
 ];
