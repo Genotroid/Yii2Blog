@@ -132,7 +132,7 @@ class Article extends \yii\db\ActiveRecord
      */
     public function getComments()
     {
-        return $this->hasMany(Comment::className(), ['article_id' => 'id']);
+        return $this->hasMany(Comment::className(), ['article_id' => 'id'])->orderBy(['created_at' => SORT_DESC]);
     }
 
     public static function getStatuses()
@@ -142,11 +142,6 @@ class Article extends \yii\db\ActiveRecord
             self::STATUS_PUBLISHED => 'Опубликована',
             self::STATUS_DELETED => 'Удалена',
         ];
-    }
-
-    public function getIsPublished()
-    {
-        return $this->status === self::STATUS_PUBLISHED;
     }
 
     public function getEditor()

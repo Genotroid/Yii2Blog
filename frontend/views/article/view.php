@@ -37,11 +37,11 @@ $this->params['breadcrumbs'][] = $model->title;
         </div>
         <div class="col-lg-8 offset-2">
             <div class="row">
-
+                <?= frontend\widgets\comments\AddComment::widget(['slug' => $model->slug]) ?>
             </div>
             <div class="row">
                 <div class="col-lg-10">
-
+                    <?= frontend\widgets\comments\Comments::widget(['model' => $model]) ?>
                 </div>
             </div>
         </div>

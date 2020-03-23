@@ -33,7 +33,8 @@ class Comment extends \yii\db\ActiveRecord
             //Поведение для работы с автором
             'editor' => [
                 'class' => BlameableBehavior::class,
-                'createdByAttribute' => 'created_by'
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'created_by'
             ]
         ];
     }
@@ -52,7 +53,7 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['article_id', 'text', 'created_at', 'created_by'], 'required'],
+            [['article_id', 'text'], 'required'],
             [['article_id', 'created_at', 'created_by'], 'integer'],
             [['text'], 'string', 'max' => 255],
             [['article_id'], 'exist', 'skipOnError' => true, 'targetClass' => Article::className(), 'targetAttribute' => ['article_id' => 'id']],
@@ -81,5 +82,10 @@ class Comment extends \yii\db\ActiveRecord
     public function getArticle()
     {
         return $this->hasOne(Article::className(), ['id' => 'article_id']);
+    }
+
+    public function getEditor()
+    {
+        return $this->hasOne(\dektrium\user\models\User::class, ['id' => 'created_by']);
     }
 }

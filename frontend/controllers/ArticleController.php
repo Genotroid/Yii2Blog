@@ -64,4 +64,17 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function actionAddComment($slug){
+        $article = Article::find()
+            ->where(['slug' => Html::encode($slug)])
+            ->one();
+        $model = new Comment();
+        if ($model->load(\Yii::$app->request->post()) && !empty($slug)) {
+            $model->article_id = $article->id;
+            if ($model->save()) {
+                return $this->redirect(['article/view', 'slug' => $slug]);
+            }
+        }
+    }
+
 }
