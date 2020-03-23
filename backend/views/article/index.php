@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 ]),
                 'value' => function ($model) {
-                    return date('d.m.Y H:i', $model->created_at);
+                    return date('d.m.Y', $model->created_at);
                 }
             ],
             [
@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'statusText',
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}', 'buttonOptions' => ['class' => 'btn btn-default'], 'options' => ['style' => 'width: 125px;']],
         ],
     ]); ?>
 
