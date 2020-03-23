@@ -16,15 +16,6 @@ return [
         'rbac' => 'dektrium\rbac\RbacWebModule',
     ],
     'components' => [
-        'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => [
-                'name' => '_identity',
-                'httpOnly' => true,
-            ],
-        ],
-
         'request' => [
             'baseUrl' => '/admin',
         ],
