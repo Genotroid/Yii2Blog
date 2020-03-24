@@ -19,12 +19,12 @@ use yii\helpers\Url;
                     [
                         'label' => 'Страницы',
                         'icon' => 'folder',
+                        'visible' => Yii::$app->user->can('admin'),
                         'items' => [
                             [
                                 'label' => 'О нас',
                                 'icon' => 'info',
                                 'url' => Url::to(['about-page/index']),
-                                'visible' => ['admin']
                             ]
                         ]
                     ]

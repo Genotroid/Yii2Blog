@@ -15,6 +15,19 @@ return [
     'modules' => [
         'user' => [
             'class' => 'dektrium\user\Module',
+            'controllerMap' => [
+                'registration' => [
+                    'class' => \dektrium\user\controllers\RegistrationController::className(),
+                    'on ' . \dektrium\user\controllers\RegistrationController::EVENT_AFTER_REGISTER => function ($e) {
+                        $auth = Yii::$app->authManager;
+                        $role = $auth->getRole('author');
+                        $user = \dektrium\user\models\User::findOne(['username' => $e->form->username]);
+                        $auth->assign($role, $user->id);
+                        Yii::$app->response->redirect(array('/user/login'))->send();
+                        Yii::$app->end();
+                    }
+                ],
+            ],
         ],
         'rbac' => 'dektrium\rbac\RbacWebModule',
     ],
