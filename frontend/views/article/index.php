@@ -20,6 +20,9 @@ $this->params['breadcrumbs'][] = \yii\helpers\Html::encode($this->title);
                     <p class="date">
                         <?= date('d.m.Y', $article->created_at) ?>
                     </p>
+                    <p class="author">
+                        <?= $article->editor->username ?>
+                    </p>
                 </div>
                 <div class="box-body">
                     <?php if ($image = $article->main_pic) { ?>

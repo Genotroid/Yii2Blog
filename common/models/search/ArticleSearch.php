@@ -56,6 +56,10 @@ class ArticleSearch extends Article
             return $dataProvider;
         }
 
+        if(\Yii::$app->user->can('author')){
+            $query->andWhere(['created_by' => \Yii::$app->user->id]);
+        }
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,

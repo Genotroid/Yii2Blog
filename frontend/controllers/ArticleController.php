@@ -30,7 +30,10 @@ class ArticleController extends Controller
     public function actionIndex()
     {
 
-        $articles = Article::find()->where(['status' => Article::STATUS_PUBLISHED])->all();
+        $articles = Article::find()
+            ->where(['status' => Article::STATUS_PUBLISHED])
+            ->orderBy(['created_at' => SORT_DESC])
+            ->all();
 
         return $this->render('index', [
             'articles' => $articles,
