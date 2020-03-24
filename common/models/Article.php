@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use floor12\files\components\FileBehaviour;
-use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -67,9 +65,9 @@ class Article extends \yii\db\ActiveRecord
             ],
             //Поведение для работы с изобрадением статьи
             'files' => [
-                'class' => FileBehaviour::class,
+                'class' => 'floor12\files\components\FileBehaviour',
                 'attributes' => [
-                    'main_pic',
+                    'main_pic'
                 ]
             ],
             //Поведение для генерации ссылки для статьи
@@ -99,7 +97,7 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'content'], 'required'],
+            [['title', 'content', 'main_pic'], 'required'],
             [['content'], 'string'],
             [['created_at', 'updated_at', 'created_by', 'updated_by', 'status'], 'integer'],
             [['title', 'slug'], 'string', 'max' => 255],

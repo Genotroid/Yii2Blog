@@ -17,23 +17,18 @@ $this->params['breadcrumbs'][] = \yii\helpers\Html::encode($this->title);
                             <?= \yii\helpers\Html::encode($article->title) ?>
                         </a>
                     </h2>
-                    <p class="date">
-                        <?= date('d.m.Y', $article->created_at) ?>
-                    </p>
-                    <p class="author">
-                        <?= $article->editor->username ?>
-                    </p>
                 </div>
                 <div class="box-body">
                     <?php if ($image = $article->main_pic) { ?>
-                        <?= \yii\helpers\Html::img(
-                            $image->getPreviewWebPath(300),
-                            [
-                                'alt' => $model->title
-                            ]
-                        ) ?>
+                        <img src="<?= $image->getPreviewWebPath() ?>" alt="<?= \yii\helpers\Html::encode($article->title) ?>" style="transform: scale(1); max-width: 100%; max-height: 400px">
                     <?php } ?>
                 </div>
+                <p class="date">
+                    <?= date('d.m.Y', $article->created_at) ?>
+                </p>
+                <p class="author">
+                    <?= $article->editor->username ?>
+                </p>
             </div>
         </div>
         <?php } ?>

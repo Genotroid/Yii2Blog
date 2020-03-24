@@ -13,16 +13,11 @@ $this->params['breadcrumbs'][] = $model->title;
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header text-center">
-                        <h1><b><?= $model->title ?></b></h1>
+                        <h1><b><?= \yii\helpers\Html::encode($model->title) ?></b></h1>
                     </div>
                     <div class="box-body text-center">
                         <?php if ($mainPic = $model->main_pic) { ?>
-                            <?= \yii\helpers\Html::img(
-                                $mainPic->getPreviewWebPath(),
-                                [
-                                    'alt' => $model->title
-                                ]
-                            ) ?>
+                            <img src="<?= $mainPic->getPreviewWebPath() ?>" alt="<?= \yii\helpers\Html::encode($model->title) ?>">
                         <?php } ?>
                     </div>
                 </div>

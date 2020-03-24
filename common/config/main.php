@@ -21,7 +21,7 @@ return [
             'class' => 'floor12\files\Module',
             'storage' => '@frontend/web/storage',
             'cache' => '@frontend/web/storage_cache',
-            'token_salt' => 'pzZmpk60dbWOMP3lyZWBoONQqq5qO2cdFobJXpAf',
+            'token_salt' => 'ywFLlGO5SCCkcxj9hg7-7whsZYNzR8cd',
         ],
     ]
 ];

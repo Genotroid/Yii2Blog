@@ -36,10 +36,12 @@ return [
         'request' => [
             'baseUrl' => '',
             'csrfParam' => '_csrf-frontend',
+            'cookieValidationKey' => '2YPjox5_yS_ACQ8zhKqfuJCHa5LUa25E',
         ],
         'session' => [
-            // this is the name of the session cookie used for login on the frontend
-            'name' => 'advanced-frontend',
+            'cookieParams' => [
+                'httpOnly' => true,
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -56,6 +58,7 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
             'baseUrl' => '',
             'rules' => [
                 '/' => 'site/index',
