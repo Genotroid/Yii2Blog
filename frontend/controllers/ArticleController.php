@@ -67,6 +67,7 @@ class ArticleController extends Controller
         ]);
     }
 
+    //Экшн для добавления нового комментрия к статье, с переданным slug
     public function actionAddComment($slug){
         $article = Article::find()
             ->where(['slug' => Html::encode($slug)])
@@ -75,6 +76,7 @@ class ArticleController extends Controller
         if ($model->load(\Yii::$app->request->post()) && !empty($slug)) {
             $model->article_id = $article->id;
             if ($model->save()) {
+                //Если не возникло ошибок, то редиректим пользователя обратно на статью
                 return $this->redirect(['article/view', 'slug' => $slug]);
             }
         }

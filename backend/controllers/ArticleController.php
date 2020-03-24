@@ -55,8 +55,7 @@ class ArticleController extends Controller
     public function actionCreate()
     {
         $model = new Article();
-        /*var_dump(Yii::$app->request->post());
-        var_dump($model->save());die;*/
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }

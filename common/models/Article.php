@@ -142,11 +142,13 @@ class Article extends \yii\db\ActiveRecord
         ];
     }
 
+    //Возвращает объект User, который создал статью
     public function getEditor()
     {
         return $this->hasOne(\dektrium\user\models\User::class, ['id' => 'updated_by']);
     }
 
+    //Возвращает массив ключ -> значение авторов и админов для фильтрации
     public static function getEditorsMap()
     {
         $adminIds = \Yii::$app->authManager->getUserIdsByRole('admin');
@@ -158,6 +160,7 @@ class Article extends \yii\db\ActiveRecord
         return [];
     }
 
+    //Возвращает статус в удобочитаемом виде
     public function getStatusText()
     {
         $statuses = self::getStatuses();

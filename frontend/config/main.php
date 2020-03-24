@@ -16,6 +16,7 @@ return [
         'user' => [
             'class' => 'dektrium\user\Module',
             'controllerMap' => [
+                //Присвоение роли Автор для зарегестрированных пользователей
                 'registration' => [
                     'class' => \dektrium\user\controllers\RegistrationController::className(),
                     'on ' . \dektrium\user\controllers\RegistrationController::EVENT_AFTER_REGISTER => function ($e) {

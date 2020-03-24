@@ -7,7 +7,8 @@ use yii\base\Widget;
 
 class Comments extends Widget
 {
-    public $model;
+    //Виджет просмотра комментариев статьи
+    public $model; //модель статьи
     public function run()
     {
         return $this->render('_view', [

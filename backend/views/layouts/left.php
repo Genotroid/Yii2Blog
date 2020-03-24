@@ -14,7 +14,6 @@ use yii\helpers\Url;
                         'label' => 'Статьи',
                         'icon' => 'id-card',
                         'url' => Url::to(['article/index']),
-                        'active' => Yii::$app->controller->id === 'author',
                     ],
                     [
                         'label' => 'Страницы',

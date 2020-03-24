@@ -1,4 +1,5 @@
 <?php
+//Шаблон для инструментальной панели tinymce
 Yii::$container->set('dosamigos\tinymce\TinyMce', [
     'language' => 'ru',
     'clientOptions' => [

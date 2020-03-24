@@ -84,6 +84,7 @@ class Comment extends \yii\db\ActiveRecord
         return $this->hasOne(Article::className(), ['id' => 'article_id']);
     }
 
+    //Возвращает объект User, который оставил комментарий
     public function getEditor()
     {
         return $this->hasOne(\dektrium\user\models\User::class, ['id' => 'created_by']);

@@ -4,14 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\AboutPage;
-use common\models\search\AboutPageSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
- * AboutPageController implements the CRUD actions for AboutPage model.
+ * Контроллер для работы со старницей О нас
  */
 class AboutPageController extends Controller
 {
@@ -21,6 +19,7 @@ class AboutPageController extends Controller
     public function behaviors()
     {
         return [
+            //Доступ дается только группе админов
             'access' => [
                 'class' => AccessControl::class,
                 'rules' => [
@@ -34,8 +33,7 @@ class AboutPageController extends Controller
     }
 
     /**
-     * Lists all AboutPage models.
-     * @return mixed
+     * Экшн открывает уже существующую форму страницы о нас для редактирования
      */
     public function actionIndex()
     {

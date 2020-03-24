@@ -7,7 +7,8 @@ use yii\base\Widget;
 
 class AddComment extends Widget
 {
-    public $slug;
+    //Виджет добавления нового комментраия
+    public $slug; //slug статьи, для которой будет добавлен комментарий
 
     public function run()
     {

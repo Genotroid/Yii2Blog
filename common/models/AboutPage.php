@@ -40,8 +40,8 @@ class AboutPage extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'content' => 'Content',
+            'title' => 'Зогловок',
+            'content' => 'Контент',
         ];
     }
 }
