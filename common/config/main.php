@@ -15,6 +15,7 @@ return [
 
         'user' => [
             'class' => 'dektrium\user\Module',
+            'admins' => ['administrator']
         ],
         'files' => [
             'class' => 'floor12\files\Module',
