@@ -15,6 +15,18 @@ use yii\helpers\Url;
                         'icon' => 'id-card',
                         'url' => Url::to(['article/index']),
                         'active' => Yii::$app->controller->id === 'author',
+                    ],
+                    [
+                        'label' => 'Страницы',
+                        'icon' => 'folder',
+                        'items' => [
+                            [
+                                'label' => 'О нас',
+                                'icon' => 'info',
+                                'url' => Url::to(['about-page/index']),
+                                'visible' => ['admin']
+                            ]
+                        ]
                     ]
                 ]
             ]

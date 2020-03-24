@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\AboutPage;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -142,7 +143,10 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        return $this->render('about');
+        $model = AboutPage::findOne([1]);
+        return $this->render('about', [
+            'model' => $model
+        ]);
     }
 
     /**
